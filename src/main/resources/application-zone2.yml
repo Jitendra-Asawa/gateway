@@ -1,0 +1,10 @@
+server:
+  port: 8525
+  
+eureka:
+  client:
+    region: zone2
+#  instance:
+#    metadataMap:
+#      zone: zone2
+#    

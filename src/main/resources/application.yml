@@ -1,0 +1,70 @@
+#eureka:
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    healthcheck:
+#      enabled: true
+#    prefer-same-zone-eureka: true
+#    region: region-1
+#    service-url:
+#      zone1: http://localhost:8999/eureka/
+#      zone2: http://localhost:9000/eureka/
+#    availability-zones:
+#      region-1: zone1,zone2
+
+eureka:
+  client:
+#    registry-fetch-interval-seconds: 10
+    fetch-registry: true
+    register-with-eureka: true
+    healthcheck:
+      enabled: true
+    prefer-same-zone-eureka: true
+#    region: zone1
+    service-url:
+      zone1: http://localhost:8999/eureka/
+      zone2: http://localhost:9000/eureka/
+    availability-zones:
+      zone1: zone1
+      zone2: zone2
+
+spring: 
+  cloud: 
+    loadbalancer:
+#      zone: zone1
+      health-check:
+        interval: 1s
+        path:
+          default: /actuator/health
+      ribbon:
+        enabled: false
+      cache:
+        ttl: 10s
+        enabled: true
+    gateway: 
+#      default-filters:
+#        - StripPrefix=1
+      discovery:
+        locator:
+#          predicates:
+#          - name: Path
+#            args:
+#              pattern : "'/*/'+serviceId+'/**'"
+#          filters:
+#          - name: RewritePath
+#            args:
+#              regexp: "'/*/' + serviceId + '/(?<remaining>.*)'"
+#              replacement: "'/${remaining}'"
+          enabled: true
+    discovery:
+      enabled: true
+  application.name: gateway
+logging:
+  level: 
+#    root: DEBUG
+    root: INFO
+    org.springframework.cloud.gateway: TRACE
+#    org.springframework.cloud.loadbalancer.core.DiscoveryClientServiceInstanceSupplier: TRACE
+#    org.springframework.cloud.gateway.discovery: TRACE
+    
+management.security.enabled: false    
